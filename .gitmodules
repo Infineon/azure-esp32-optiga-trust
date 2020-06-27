@@ -1,0 +1,3 @@
+[submodule "components/esp-azure/azure-iot-sdk-c"]
+	path = components/esp-azure/azure-iot-sdk-c
+	url = https://github.com/Azure/azure-iot-sdk-c.git

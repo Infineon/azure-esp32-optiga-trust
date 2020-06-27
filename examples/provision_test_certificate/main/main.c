@@ -176,22 +176,22 @@ int generatepublickey(uint8_t curvetype)
 				data_offset = sizeof(ecc384_header);
 				header_pointer = ecc384_header;
 			}
-			if(curvetype == (uint8_t)OPTIGA_ECC_CURVE_NIST_P_384)
+			if(curvetype == (uint8_t)OPTIGA_ECC_CURVE_NIST_P_521)
 			{
 				data_offset = sizeof(ecc521_header);
 				header_pointer = ecc521_header;
 			}
-			if(curvetype == (uint8_t)OPTIGA_ECC_CURVE_NIST_P_384)
+			if(curvetype == (uint8_t)OPTIGA_ECC_CURVE_BRAIN_POOL_P_256R1)
 			{
 				data_offset = sizeof(eccbp256_header);
 				header_pointer = eccbp256_header;
 			}
-			if(curvetype == (uint8_t)OPTIGA_ECC_CURVE_NIST_P_384)
+			if(curvetype == (uint8_t)OPTIGA_ECC_CURVE_BRAIN_POOL_P_384R1)
 			{
 				data_offset = sizeof(eccbp384_header);
 				header_pointer = eccbp384_header;
 			}
-			if(curvetype == (uint8_t)OPTIGA_ECC_CURVE_NIST_P_384)
+			if(curvetype == (uint8_t)OPTIGA_ECC_CURVE_BRAIN_POOL_P_512R1)
 			{
 				data_offset = sizeof(eccbp512_header);
 				header_pointer = eccbp512_header;
@@ -370,8 +370,12 @@ static void optiga_personalization(void)
 		printf("\nSelect the key type from below list\n");
 		printf("Press 1 to Generate NIST P-256\n");
 		printf("Press 2 to Generate NIST P-384\n");
-		printf("Press 3 to Generate RSA 1024\n");
-		printf("Press 4 to Generate RSA 2048\n");
+		printf("Press 3 to Generate NIST P-521\n");
+		printf("Press 4 to Generate Brainpool 256 r1\n");
+		printf("Press 5 to Generate Brainpool 384 r1\n");
+		printf("Press 6 to Generate Brainpool 512 r1\n");
+		printf("Press 7 to Generate RSA 1024\n");
+		printf("Press 8 to Generate RSA 2048\n");
 			
 		while (1) 
 		{	
@@ -394,11 +398,35 @@ static void optiga_personalization(void)
 				}
 				else if('3' == (char)data[0])
 				{
+					curvetype = (uint8_t)OPTIGA_ECC_CURVE_NIST_P_521;
+					printf("\nSelected NIST P-521 Curve\n");
+					break;
+				}
+				else if('4' == (char)data[0])
+				{
+					curvetype = (uint8_t)OPTIGA_ECC_CURVE_BRAIN_POOL_P_256R1;
+					printf("\nSelected Brainpool 256 r1 curve\n");
+					break;
+				}
+				else if('5' == (char)data[0])
+				{				
+					curvetype = (uint8_t)OPTIGA_ECC_CURVE_BRAIN_POOL_P_384R1;
+					printf("\nSelected Brainpool 384 r1 curve\n");
+					break;
+				}
+				else if('6' == (char)data[0])
+				{
+					curvetype = (uint8_t)OPTIGA_ECC_CURVE_BRAIN_POOL_P_512R1;
+					printf("\nSelected Brainpool 512 r1 curve\n");
+					break;
+				}
+				else if('7' == (char)data[0])
+				{
 					curvetype = (uint8_t)OPTIGA_RSA_KEY_1024_BIT_EXPONENTIAL;
 					printf("\nSelected RSA 1024\n");
 					break;
 				}
-				else if('4' == (char)data[0])
+				else if('8' == (char)data[0])
 				{
 					curvetype = (uint8_t)OPTIGA_RSA_KEY_2048_BIT_EXPONENTIAL;
 					printf("\nSelected RSA 2048\n");
@@ -409,8 +437,12 @@ static void optiga_personalization(void)
 					printf("Invalid option.Select any below option\n");
 					printf("Press 1 to Generate NIST P-256\n");
 					printf("Press 2 to Generate NIST P-384\n");
-					printf("Press 3 to Generate RSA 1024\n");
-					printf("Press 4 to Generate RSA 2048\n");
+					printf("Press 3 to Generate NIST P-521\n");
+					printf("Press 4 to Generate Brainpool 256 r1\n");
+					printf("Press 5 to Generate Brainpool 384 r1\n");
+					printf("Press 6 to Generate Brainpool 512 r1\n");
+					printf("Press 7 to Generate RSA 1024\n");
+					printf("Press 8 to Generate RSA 2048\n");
 				}
 			}
 		}

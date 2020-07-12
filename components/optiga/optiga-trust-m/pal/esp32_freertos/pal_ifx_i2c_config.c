@@ -56,14 +56,14 @@
 
 /*!< gpio number for software reset line  */
 #ifndef CONFIG_PAL_I2C_MASTER_RESET
-	#define PAL_I2C_MASTER_RESET            33
+	#define PAL_I2C_MASTER_RESET            25
 #else
 	#define PAL_I2C_MASTER_RESET			CONFIG_PAL_I2C_MASTER_RESET
 #endif
 
 /*!< gpio number for software reset line  */
 #ifndef CONFIG_PAL_I2C_MASTER_VCC
-	#define PAL_I2C_MASTER_VCC           32
+	#define PAL_I2C_MASTER_VCC           26
 #else
 	#define PAL_I2C_MASTER_VCC			CONFIG_PAL_I2C_MASTER_VCC
 #endif

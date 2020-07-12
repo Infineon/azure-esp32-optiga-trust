@@ -159,7 +159,7 @@ int generatepublickey(uint8_t curvetype)
 		me = optiga_crypt_create(0, optiga_crypt_event_completed, NULL);
 		if (NULL == me)
 		{
-			OPTIGA_CRYPT_LOG_MESSAGE ("optiga_crypt_create failed !!!");
+			optiga_lib_print_message("optiga_crypt_create failed !!!",OPTIGA_CRYPT_SERVICE,OPTIGA_CRYPT_SERVICE_COLOR);
             break;
 		}
 
@@ -227,7 +227,7 @@ int generatepublickey(uint8_t curvetype)
 		if ( command_queue_status != OPTIGA_LIB_SUCCESS )
 		{
 			//optiga_crypt_ecc_generate_keypair api returns error !!!
-			OPTIGA_CRYPT_LOG_MESSAGE ("optiga_crypt_ecc_generate_keypair api returns error !!!");
+			optiga_lib_print_message("optiga_crypt_ecc_generate_keypair api returns error !!!",OPTIGA_CRYPT_SERVICE,OPTIGA_CRYPT_SERVICE_COLOR);
 			break;
 		}
 
@@ -240,7 +240,7 @@ int generatepublickey(uint8_t curvetype)
 		if ( crypt_event_completed_status != OPTIGA_LIB_SUCCESS )
 		{
 			//optiga_util_open_application failed
-			OPTIGA_CRYPT_LOG_MESSAGE ("Call back status error");
+			optiga_lib_print_message("Call back status error",OPTIGA_CRYPT_SERVICE,OPTIGA_CRYPT_SERVICE_COLOR);
 			printf("%02X", crypt_event_completed_status);
 			break;
 		}
@@ -299,7 +299,7 @@ int generatepublickey(uint8_t curvetype)
             printf("%c", public_key[i]);
         } 
 		printf("\n");
-		OPTIGA_CRYPT_LOG_MESSAGE ("Generate Key Pair successful!!!")
+		optiga_lib_print_message("Generate Key Pair successful!!!",OPTIGA_CRYPT_SERVICE,OPTIGA_CRYPT_SERVICE_COLOR);
 		
 		ret = 0;
 	}while(0);

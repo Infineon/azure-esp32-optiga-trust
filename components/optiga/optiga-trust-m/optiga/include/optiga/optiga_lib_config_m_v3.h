@@ -94,13 +94,23 @@ extern "C" {
     /** @brief OPTIGA CRYPT HMAC verify feature enable/disable macro */
     #define OPTIGA_CRYPT_HMAC_VERIFY_ENABLED
     /** @brief OPTIGA CRYPT clear AUTO state feature enable/disable macro */
-    #define OPTIGA_CRYPT_CLEAR_AUTO_STATE_ENABLED
-    /** @brief OPTIGA UTIL confidentiality protected update feature enable/disable macro */      
-    #define OPTIGA_UTIL_PROTECTED_UPDATE_CONFIDENTIALITY_ENABLED    
-    /** @brief OPTIGA UTIL key object protected update feature enable/disable macro */      
-    #define OPTIGA_UTIL_PROTECTED_UPDATE_KEY_OBJECT_ENABLED    
-    /** @brief OPTIGA UTIL metadata object protected update feature enable/disable macro */      
-    #define OPTIGA_UTIL_PROTECTED_UPDATE_METADATA_OBJECT_ENABLED    
+    #define OPTIGA_CRYPT_CLEAR_AUTO_STATE_ENABLED   
+
+    /** @brief OPTIGA COMMS shielded connection feature.
+     *         To disable the feature, undefine the macro
+     */
+    #define OPTIGA_COMMS_SHIELDED_CONNECTION
+
+    /** @brief Default reset protection level for OPTIGA CRYPT and UTIL APIs */
+    #define OPTIGA_COMMS_DEFAULT_PROTECTION_LEVEL           OPTIGA_COMMS_NO_PROTECTION
+
+  /** @brief Default reset type in optiga_comms_open.             \n
+     *         Cold Reset - (0) : This is applicable if the host platform has GPIO option for RST and VDD.    \n
+     *         Soft Reset - (1) : This is applicable if the host platform doesn't have GPIO options for VDD and RST.  \n
+     *         Warm Reset - (2) : This is applicable if the host platform doesn't have GPIO option for VDD. \n
+     *         Any other value will lead to error
+     */
+    #define OPTIGA_COMMS_DEFAULT_RESET_TYPE     (0U)
     
     /** @brief NULL parameter check.
      *         To disable the check, undefine the macro
@@ -132,22 +142,14 @@ extern "C" {
 #endif
 /// @endcond
 
-    /** @brief OPTIGA COMMS shielded connection feature.
-     *         To disable the feature, undefine the macro
-     */
-    #define OPTIGA_COMMS_SHIELDED_CONNECTION
-
-    /** @brief Default reset protection level for OPTIGA CRYPT and UTIL APIs */
-    #define OPTIGA_COMMS_DEFAULT_PROTECTION_LEVEL           OPTIGA_COMMS_NO_PROTECTION
-
-  /** @brief Default reset type in optiga_comms_open.             \n
-     *         Cold Reset - (0) : This is applicable if the host platform has GPIO option for RST and VDD.    \n
-     *         Soft Reset - (1) : This is applicable if the host platform doesn't have GPIO options for VDD and RST.  \n
-     *         Warm Reset - (2) : This is applicable if the host platform doesn't have GPIO option for VDD. \n
-     *         Any other value will lead to error
-     */
-    #define OPTIGA_COMMS_DEFAULT_RESET_TYPE     (0U)
-
+    /* Below are the example macros for protected update not for any feature */
+    /** @brief OPTIGA UTIL confidentiality protected update feature enable/disable macro */      
+    #define EXAMPLE_OPTIGA_UTIL_PROTECTED_UPDATE_CONFIDENTIALITY_ENABLED    
+    /** @brief OPTIGA UTIL key object protected update feature enable/disable macro */      
+    #define EXAMPLE_OPTIGA_UTIL_PROTECTED_UPDATE_OBJECT_KEY_ENABLED    
+    /** @brief OPTIGA UTIL metadata object protected update feature enable/disable macro */      
+    #define EXAMPLE_OPTIGA_UTIL_PROTECTED_UPDATE_OBJECT_METADATA_ENABLED    
+    
 
 #ifdef __cplusplus
 }

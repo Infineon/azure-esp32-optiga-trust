@@ -480,7 +480,7 @@ void example_optiga_util_protected_update(void)
 
             WAIT_AND_CHECK_STATUS(return_status, optiga_lib_status);
             /**
-            *  Postcondition  :
+            *  Revert the version tag of metadata configuration to re-run the protected update examples
             *  Update the metadata of target OID for version tag to be 00
             */
             return_status = write_metadata(me,

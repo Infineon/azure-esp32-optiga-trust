@@ -38,25 +38,25 @@
 #include <stdint.h>
 
 #include "data_object.h"
-#ifdef OPTIGA_UTIL_PROTECTED_UPDATE_CONFIDENTIALITY_ENABLED
+#ifdef EXAMPLE_OPTIGA_UTIL_PROTECTED_UPDATE_CONFIDENTIALITY_ENABLED
 #include "data_object_confidentiality.h"
 #endif
-#ifdef OPTIGA_UTIL_PROTECTED_UPDATE_KEY_OBJECT_ENABLED
+#ifdef EXAMPLE_OPTIGA_UTIL_PROTECTED_UPDATE_OBJECT_KEY_ENABLED
 #include "aes_key_object_confidentiality.h"
 #include "ecc_key_object_confidentiality.h"
 #include "rsa_key_object_confidentiality.h"
 #endif
-#ifdef OPTIGA_UTIL_PROTECTED_UPDATE_METADATA_OBJECT_ENABLED
+#ifdef EXAMPLE_OPTIGA_UTIL_PROTECTED_UPDATE_OBJECT_METADATA_ENABLED    
 #include "metadata_object_confidentiality.h"
 #endif
 
 /** @brief Macro to enable secure data update in OID example */
 #define INTEGRITY_PROTECTED                  (0x00)
-#ifdef OPTIGA_UTIL_PROTECTED_UPDATE_CONFIDENTIALITY_ENABLED
+#ifdef EXAMPLE_OPTIGA_UTIL_PROTECTED_UPDATE_CONFIDENTIALITY_ENABLED
 /** @brief Macro to enable secure data update in OID with confidentiality example */
 #define CONFIDENTIALITY_PROTECTED            (0x01)
 #endif
-#ifdef OPTIGA_UTIL_PROTECTED_UPDATE_KEY_OBJECT_ENABLED
+#ifdef EXAMPLE_OPTIGA_UTIL_PROTECTED_UPDATE_OBJECT_KEY_ENABLED
 /** @brief Macro to enable secure AES key update in key object example */
 #define AES_KEY_UPDATE                       (0x02)
 /** @brief Macro to enable secure ECC key update in key object example */
@@ -64,7 +64,7 @@
 /** @brief Macro to enable secure RSA key update in key object example */
 #define RSA_KEY_UPDATE                       (0x04)
 #endif
-#ifdef OPTIGA_UTIL_PROTECTED_UPDATE_METADATA_OBJECT_ENABLED
+#ifdef EXAMPLE_OPTIGA_UTIL_PROTECTED_UPDATE_OBJECT_METADATA_ENABLED
 /** @brief Macro to enable secure metadata update of  OID example */
 #define METADATA_UPDATE                      (0x05)
 #endif

@@ -30,7 +30,7 @@ This Application Note uses Espressif ESP32, but it also shows how to port onto a
 
 ### Step 1. Download and install missing components 
 
-1. **ESP-IDF ver. 4.1** .ESP IDF stands for Espressif IoT Development Framework. The installation guidelines based on you setup can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html#installation-step-by-step). Please try to build a sample ["Hello World"](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html#step-5-start-a-project) project before continuing.
+1. **ESP-IDF ver. 4.4** .ESP IDF stands for Espressif IoT Development Framework. The installation guidelines based on you setup can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html#installation-step-by-step). Please try to build a sample ["Hello World"](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html#step-5-start-a-project) project before continuing.
 
 2. **This repository**
   ``` bash

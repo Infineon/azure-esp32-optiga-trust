@@ -34,7 +34,7 @@ This Application Note uses Espressif ESP32, but it also shows how to port onto a
 
 2. **This repository**
   ``` bash
-  git clone --recursive https://github.com/Infineon/azure-optiga-trust-m3.git
+  git clone --recursive https://github.com/Infineon/azure-esp32-optiga-trust.git
   ```
 
 ## Step 2. Setting up Microsoft Azure IoT Hub
@@ -104,7 +104,7 @@ Now it becomes possible to provision your device with a new X.509 certificate an
     C:\Users\username\Desktop\esp-idf>
     ```
     </details>
-- Change working directory to <azure-optiga-trust-m\examples\provision_test_certificate>
+- Change working directory to <azure-esp32-optiga-trust\examples\provision_test_certificate>
 - Configure "OPTIGA(TM) Trust M config" using below command to select the Certificate and Key slot
 
     ```sh
@@ -194,18 +194,18 @@ Now it becomes possible to provision your device with a new X.509 certificate an
 ## Step 3. Configuring and Building Sample
 
 - Follow this step only if Server root CA need to be loaded into any of OPTIGA data object.This certficate will be used for Authentication in TLS session. 
-    - Comment the macro **-DMBEDTLS_RSA_ALT** from the Cmakelist.txt file present in the path <azure-optiga-trust-m\components\optiga> as shown below
+    - Comment the macro **-DMBEDTLS_RSA_ALT** from the Cmakelist.txt file present in the path <azure-esp32-optiga-trust\components\optiga> as shown below
         ```sh
         #-DMBEDTLS_RSA_ALT
         ```
         >Note: Since OPTIGA™ Trust M supports only RSA 1024/2048 and Azure Certificate chain has RSA 4096 certificate, the certificate path validation cannot be performed using OPTIGA™ Trust M RSA feature. Hence usage of RSA feature from OPTIGA™ Trust M need to be disabled. 
-    - Enable the macro **SET_TRUSTED_CERT_IN_SAMPLES** and **LOAD_TA_FROM_OPTIGA** from the Cmakelist.txt file present in the path <azure-optiga-trust-m2\examples\iothub_client_sample_mqtt\main> by uncommenting the compile time definitions as below.
+    - Enable the macro **SET_TRUSTED_CERT_IN_SAMPLES** and **LOAD_TA_FROM_OPTIGA** from the Cmakelist.txt file present in the path <azure-esp32-optiga-trust\examples\iothub_client_sample_mqtt\main> by uncommenting the compile time definitions as below.
         ```sh
         component_compile_definitions(SET_TRUSTED_CERT_IN_SAMPLES)
         component_compile_definitions(LOAD_TA_FROM_OPTIGA)
         ```
     - To enable server certficate validation using OPTIGA, the region specific server root CA certificate must be loaded in any of OPTIGA data object either by personalization or by writing to object using OPTIGA write API
-    - To load trust anchor using OPTIGA write API, modify file <azure-optiga-trust-m\components\optiga\optiga-trust-m\examples\utilities\optiga_trust.c> as below
+    - To load trust anchor using OPTIGA write API, modify file <azure-esp32-optiga-trust\components\optiga\optiga-trust-m\examples\utilities\optiga_trust.c> as below
         - User can choose the root CA as either from the below available certificate or can provide specific certificate by setting value as "1". E.g.:  #if 1
         By default user can select the **DigiCert Baltimore Root** certificate as it is used Globally as Root Server CA.
         <details>
@@ -301,7 +301,7 @@ Now it becomes possible to provision your device with a new X.509 certificate an
     C:\Users\username\Desktop\esp-idf>
     ```
     </details>
-- Change working directory to <azure-optiga-trust-m\examples\iothub_client_sample_mqtt>
+- Change working directory to <azure-esp32-optiga-trust\examples\iothub_client_sample_mqtt>
 - Configure "Example Configuration" and "OPTIGA(TM) Trust M config" using below command
 
     ```sh

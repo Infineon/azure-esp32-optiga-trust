@@ -18,7 +18,7 @@ The ESP Azure OPTIGA™ Trust M package is based on Azure IoT C SDK and allows t
 ## Hardware
 
   * [OPTIGA Trust M Shield2Go](https://www.infineon.com/cms/en/product/evaluation-boards/s2go-security-optiga-m/)
-  * [ESP32-DevKitC](https://www.espressif.com/en/products/hardware/development-boards)
+  * [ESP32-DevKitC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html) or [ESP32-C3-DevKitC-02](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitc-02.html)
   <details>
 	<summary>Connection example</summary>
 	<img src="docs/images/Esp32_connection_with_Shield2Go.jpg" >
@@ -109,6 +109,11 @@ Now it becomes possible to provision your device with a new X.509 certificate an
 
     ```sh
     idf.py menuconfig
+    ```
+- Correctly set the I2C GPIO's in `components\optiga\optiga-trust-m\pal\esp32_freertos\pal_ifx_i2c_config.c` and `OPTIGA_COMMS_DEFAULT_RESET_TYPE` in `components\optiga\optiga-trust-m\optiga\include\optiga\optiga_lib_config_m_v3.h`
+- Set the target using the below command
+    ```sh
+    idf.py set-target <target>
     ```
 - Build Personalisation project and Flash ESP32 using below command 
     ```bash	

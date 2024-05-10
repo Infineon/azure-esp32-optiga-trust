@@ -620,7 +620,11 @@ void optiga_trust_init(void)
                 break;
             }
             
-            while (optiga_lib_status == OPTIGA_LIB_BUSY);
+            while (optiga_lib_status == OPTIGA_LIB_BUSY)
+            {
+                pal_os_timer_delay_in_milliseconds(5);
+            }
+            
             if (OPTIGA_LIB_SUCCESS != optiga_lib_status)
             {
                 //optiga_util_open_application failed

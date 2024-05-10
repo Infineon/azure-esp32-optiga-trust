@@ -21,7 +21,7 @@ The functions that are needed to be integrated into mbedTLS are defined below.<b
 
 ### Platform Abstraction Layer <a name="pal"></a>
 Platform abstraction layer for platform low level drivers like I2C, Timer, GPIO, socket and other platform dependencies.
-Modify the files based on the target platform. Generic steps are described [here](https://github.com/Infineon/optiga-trust-m/tree/master/pal/NEW_PAL_TEMPLATE).
+Modify the files based on the target platform. Generic steps are described [here](https://github.com/Infineon/optiga-trust-m/tree/main/extras/pal/NEW_PAL_TEMPLATE).
 
 ### Initialization API's <a name="initialization"></a>
 

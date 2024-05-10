@@ -60,7 +60,7 @@ You may choose any of the following ways to get your certificates:
 
 3. Generate an X.509 intermediate CA certificate signed by an existing root CA certificate and upload it to the hub. Once the intermediate certificate is uploaded and verified, as instructed below, it can be used in the place of a root CA certificate mentioned below. Tools like OpenSSL (openssl req and openssl ca) can be used to generate and sign an intermediate CA certificate.
 ```
-The OPTIGA Trust M board comes with a [pre-provisioned unique X.509 certificate](https://github.com/Infineon/optiga-trust-m/tree/master/certificates), which correspond to the first option, but for testing we advice to provision a new test X.509 certificate **to the secure element** uwing a third-party tool such as OpenSSL.
+The OPTIGA Trust M board comes with a [pre-provisioned unique X.509 certificate](https://github.com/Infineon/optiga-trust-m-overview/tree/main/data/certificates), which correspond to the first option, but for testing we advice to provision a new test X.509 certificate **to the secure element** uwing a third-party tool such as OpenSSL.
 
 For this please follow first **three** steps from the [guidance](https://github.com/Azure/azure-iot-sdk-c/blob/master/tools/CACertificates/CACertificateOverview.md), namelly "Step 1 - Initial Setup", and "Step 2 - Create the certificate chain", and "Step 3 - Proof of Possession".
 

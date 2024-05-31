@@ -28,7 +28,7 @@
 #else
 #include MBEDTLS_CONFIG_FILE
 #endif
-
+#if 0
 #if defined(MBEDTLS_RSA_C)
 
 #include "mbedtls/rsa.h"
@@ -2501,3 +2501,4 @@ void mbedtls_rsa_free( mbedtls_rsa_context *ctx )
 #endif /* !MBEDTLS_RSA_ALT */
 
 #endif /* MBEDTLS_RSA_C */
+#endif

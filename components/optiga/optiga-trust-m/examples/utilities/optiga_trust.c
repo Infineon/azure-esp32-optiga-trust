@@ -100,8 +100,11 @@ void read_certificate_from_optiga(char * cert_pem, uint16_t * cert_pem_length)
             optiga_lib_print_message("optiga_util_read_data api returns error !!!",OPTIGA_UTIL_SERVICE,OPTIGA_UTIL_SERVICE_COLOR);
             break;
         }
-            
-        while (optiga_lib_status == OPTIGA_LIB_BUSY);
+
+        while (optiga_lib_status == OPTIGA_LIB_BUSY)
+        {
+            pal_os_timer_delay_in_milliseconds(5);
+        }
         if (OPTIGA_LIB_SUCCESS != optiga_lib_status)
         {
             //optiga_util_read_data failed
@@ -275,6 +278,7 @@ void write_data_object (uint16_t oid, const uint8_t * p_data, uint16_t length)
             while (OPTIGA_LIB_BUSY == optiga_lib_status)
             {
                 //Wait until the optiga_util_write_data operation is completed
+                pal_os_timer_delay_in_milliseconds(5);
             }
 
             if (OPTIGA_LIB_SUCCESS != optiga_lib_status)

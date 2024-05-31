@@ -24,7 +24,7 @@
 * @{
 */
 
-#include "mbedtls/config.h"
+#include "mbedtls/mbedtls_config.h"
 
 #if defined(MBEDTLS_ECDSA_C)
 

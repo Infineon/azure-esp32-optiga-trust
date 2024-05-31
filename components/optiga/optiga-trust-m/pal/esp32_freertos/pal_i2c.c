@@ -139,7 +139,7 @@ pal_status_t pal_i2c_write(const pal_i2c_t * p_i2c_context, uint8_t * p_data, ui
     i2c_master_write_byte(cmd, (p_i2c_context->slave_address << 1) | WRITE_BIT, ACK_CHECK_EN);
     i2c_master_write(cmd, p_data, length, ACK_CHECK_EN);
     i2c_master_stop(cmd);
-    esp_err_t ret = i2c_master_cmd_begin(i2c_master_port, cmd, 1000 / portTICK_RATE_MS);
+    esp_err_t ret = i2c_master_cmd_begin(i2c_master_port, cmd, 1000 / portTICK_PERIOD_MS);
     i2c_cmd_link_delete(cmd);
 
 	upper_layer_handler = (upper_layer_callback_t)p_i2c_context->upper_layer_event_handler;
@@ -182,7 +182,7 @@ pal_status_t pal_i2c_read(const pal_i2c_t * p_i2c_context, uint8_t * p_data, uin
     }
     i2c_master_read_byte(cmd, p_data + length - 1, NACK_VAL);
     i2c_master_stop(cmd);
-    esp_err_t ret = i2c_master_cmd_begin(i2c_master_port, cmd, 1000 / portTICK_RATE_MS);
+    esp_err_t ret = i2c_master_cmd_begin(i2c_master_port, cmd, 1000 / portTICK_PERIOD_MS);
     i2c_cmd_link_delete(cmd);
 	
     upper_layer_handler = (upper_layer_callback_t)p_i2c_context->upper_layer_event_handler;

@@ -139,7 +139,7 @@ int generatepublickey(uint8_t curvetype)
 	char public_key[500];
 	uint16_t public_key_len;
 	uint8_t data_offset = 0;
-	uint8_t ecc_curve_type = true;
+	// uint8_t ecc_curve_type = true;
 	uint8_t *header_pointer = NULL;
 	uint8_t rsa1024_header[] = {0x30, 0x81, 0x9F, 0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00};
 	uint8_t rsa2048_header[] = {0x30, 0x82, 0x01, 0x22, 0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00};
@@ -358,6 +358,7 @@ static void optiga_personalization(void)
         .stop_bits = UART_STOP_BITS_1,
         .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
         .rx_flow_ctrl_thresh = 122 ,
+        .source_clk = UART_SCLK_DEFAULT,
     };
     uart_driver_install(UART_NUM_0, BUF_SIZE * 2, 0, 0, NULL, 0);
     uart_param_config(UART_NUM_0, &uart_config);
@@ -380,7 +381,7 @@ static void optiga_personalization(void)
 		while (1) 
 		{	
 			// Read data from the UART
-			int len = uart_read_bytes(UART_NUM_0, data, BUF_SIZE, 100/ portTICK_RATE_MS);
+			int len = uart_read_bytes(UART_NUM_0, data, BUF_SIZE, 100/ portTICK_PERIOD_MS);
 			// Write data back to the UART
 			if(len > 0)
 			{

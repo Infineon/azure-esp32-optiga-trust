@@ -1,6 +1,7 @@
 set(COMPONENT_ADD_INCLUDEDIRS 
 		"${PROJECT_SOURCE_DIR}/components/mbedtls/mbedtls/include"
-		"${PROJECT_SOURCE_DIR}/components/driver/include"
+		"${PROJECT_SOURCE_DIR}/components/driver/i2c/include"
+		"${PROJECT_SOURCE_DIR}/components/driver/gpio/include"
 		"${PROJECT_SOURCE_DIR}/components/esp_netif/include"
 		"${PROJECT_SOURCE_DIR}/components/esp_event/include"
 		"${PROJECT_SOURCE_DIR}/components/esp_wifi/include"

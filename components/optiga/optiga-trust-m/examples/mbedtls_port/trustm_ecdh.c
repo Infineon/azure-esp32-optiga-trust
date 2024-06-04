@@ -44,7 +44,7 @@
 /**
  * Callback when optiga_crypt_xxxx operation is completed asynchronously
  */
-optiga_lib_status_t crypt_event_completed_status;
+static volatile optiga_lib_status_t crypt_event_completed_status;
 
 //lint --e{818} suppress "argument "context" is not used in the sample provided"
 static void optiga_crypt_event_completed(void * context, optiga_lib_status_t return_status)

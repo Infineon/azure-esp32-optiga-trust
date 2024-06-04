@@ -28,11 +28,10 @@
 #else
 #include MBEDTLS_CONFIG_FILE
 #endif
-#if 0
 #if defined(MBEDTLS_RSA_C)
 
 #include "mbedtls/rsa.h"
-#include "mbedtls/rsa_internal.h"
+#include "rsa_alt_helpers.h"
 #include "mbedtls/oid.h"
 #include "mbedtls/platform_util.h"
 
@@ -2501,4 +2500,3 @@ void mbedtls_rsa_free( mbedtls_rsa_context *ctx )
 #endif /* !MBEDTLS_RSA_ALT */
 
 #endif /* MBEDTLS_RSA_C */
-#endif

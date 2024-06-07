@@ -146,7 +146,6 @@ Now it becomes possible to provision your device with a new X.509 certificate an
 * Public Key Extraction</br>
   The demo project starts with generating a new keypair, where the private part stays on the secure element, and the public component   is printed out. You should be able to see something like this
   ```bash
-  Device public key:
   -----BEGIN PUBLIC KEY-----
   MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEzWVpzrgbuR5yM5/oz2DvD5+0czOs
   bxkYE2mZP6DCk1+uCPEa0EG3NFznRhBGIo5aX9eH1XHcsk6NdbMlhuLMDA==
@@ -161,18 +160,18 @@ Now it becomes possible to provision your device with a new X.509 certificate an
   openssl genrsa -out tempCsrSigner.key 2048
   or
   //For ECC key generation execute below command
-  openssl ecparam -out tempCsrSigner.pem -name prime256v1 -genkey
+  openssl ecparam -out tempCsrSigner.key -name prime256v1 -genkey
 
   openssl req -new -key tempCsrSigner.key -out deviceCert.csr
   ```
   During execution of second command, You will be prompted to give Distinguished Names(DN). Common Name (CN) is mandatory field in DN details. Provide the newly created Azure IoT Device  **DEVICE ID** as common name for csr generation, other fields can be skipped</br>
   For Bash
   ```bash
-  openssl x509 -req -in deviceCert.csr -CA ./certs/azure-iot-test-only.root.ca.cert.pem -CAkey ./private/azure-iot-test-only.root.ca.cert.pem -CAcreateserial -out deviceCert.pem -days 500 -sha256 -force_pubkey device_public_key.pem 
+  openssl x509 -req -in deviceCert.csr -CA ./certs/azure-iot-test-only.root.ca.cert.pem -CAkey ./private/azure-iot-test-only.root.ca.key.pem -CAcreateserial -out deviceCert.pem -days 500 -sha256 -force_pubkey device_public_key.pem 
   ```
   For Powershell
   ```bash
-  openssl x509 -req -in deviceCert.csr -CA .\certs\azure-iot-test-only.root.ca.cert.pem -CAkey .\private\azure-iot-test-only.root.ca.cert.pem -CAcreateserial -out deviceCert.pem -days 500 -sha256 -force_pubkey device_public_key.pem
+  openssl x509 -req -in deviceCert.csr -CA .\certs\azure-iot-test-only.root.ca.cert.pem -CAkey .\private\azure-iot-test-only.root.ca.key.pem -CAcreateserial -out deviceCert.pem -days 500 -sha256 -force_pubkey device_public_key.pem
   ```
 * Writing back the new certificate
 	- Open the the certficate file in any text editor and copy the certificate.
@@ -212,7 +211,7 @@ Now it becomes possible to provision your device with a new X.509 certificate an
     - To enable server certficate validation using OPTIGA, the region specific server root CA certificate must be loaded in any of OPTIGA data object either by personalization or by writing to object using OPTIGA write API
     - To load trust anchor using OPTIGA write API, modify file <azure-esp32-optiga-trust\components\optiga\optiga-trust-m\examples\utilities\optiga_trust.c> as below
         - User can choose the root CA as either from the below available certificate or can provide specific certificate by setting value as "1". E.g.:  #if 1
-        By default user can select the **DigiCert Baltimore Root** certificate as it is used Globally as Root Server CA.
+        By default user can select the **DigiCert Baltimore Root** or the **DigiCert Global Root G2** certificate as it is used Globally as Root Server CA.
         <details>
         <summary>Code fragment </summary>
             

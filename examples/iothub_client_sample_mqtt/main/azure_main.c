@@ -132,12 +132,10 @@ void wifi_init_sta(void)
 extern void optiga_trust_init(void);
 
 void azure_task(void *pvParameter)
-{
-    optiga_trust_init();    
-    
-    iothub_client_sample_mqtt_run();
+{    
+   iothub_client_sample_mqtt_run();
 
-    vTaskDelete(NULL);
+   vTaskDelete(NULL);
 }
 
 void app_main()
@@ -152,8 +150,9 @@ void app_main()
 
     wifi_init_sta();
 
+    optiga_trust_init();
+
     if ( xTaskCreate(&azure_task, "azure_task", 1024 * 5, NULL, 5, NULL) != pdPASS ) {
         printf("create azure task failed\r\n");
     }
-
 }

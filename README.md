@@ -119,7 +119,7 @@ Now it becomes possible to provision your device with a new X.509 certificate an
 - Run the following command to apply the patch for azure-iot-sdk-c, as the fixes are not part of the submodule which can result in build failures.
 
     ```
-    git apply azure-iot-sdk-c.patch
+    ./apply_patch_azure_iot.sh
     ```
 
 - Build Personalisation project and Flash ESP32 using below command 
@@ -168,13 +168,7 @@ Now it becomes possible to provision your device with a new X.509 certificate an
   openssl genrsa -out tempCsrSigner.key 2048
   or
   //For ECC key generation execute below command
-  <<<<<<< Updated upstream
   openssl ecparam -out tempCsrSigner.key -name prime256v1 -genkey
-
-=======
-  openssl ecparam -out tempCsrSigner.pem -name prime256v1 -genkey
-
->>>>>>> Stashed changes
   openssl req -new -key tempCsrSigner.key -out deviceCert.csr
   ```
   During execution of second command, You will be prompted to give Distinguished Names(DN). Common Name (CN) is mandatory field in DN details. Provide the newly created Azure IoT Device  **DEVICE ID** as common name for csr generation, other fields can be skipped</br>

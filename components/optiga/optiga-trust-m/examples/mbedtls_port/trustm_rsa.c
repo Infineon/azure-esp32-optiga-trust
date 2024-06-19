@@ -28,11 +28,10 @@
 #else
 #include MBEDTLS_CONFIG_FILE
 #endif
-
 #if defined(MBEDTLS_RSA_C)
 
 #include "mbedtls/rsa.h"
-#include "mbedtls/rsa_internal.h"
+#include "rsa_alt_helpers.h"
 #include "mbedtls/oid.h"
 #include "mbedtls/platform_util.h"
 

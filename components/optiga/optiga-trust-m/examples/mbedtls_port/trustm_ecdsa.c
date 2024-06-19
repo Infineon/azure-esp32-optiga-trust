@@ -24,7 +24,7 @@
 * @{
 */
 
-#include "mbedtls/config.h"
+#include "mbedtls/mbedtls_config.h"
 
 #if defined(MBEDTLS_ECDSA_C)
 
@@ -45,7 +45,7 @@
 #define CONFIG_OPTIGA_TRUST_M_PRIVKEY_SLOT OPTIGA_KEY_ID_E0F0
 #endif
 
-optiga_lib_status_t crypt_event_completed_status;
+static volatile optiga_lib_status_t crypt_event_completed_status;
 
 //lint --e{818} suppress "argument "context" is not used in the sample provided"
 static void optiga_crypt_event_completed(void * context, optiga_lib_status_t return_status)

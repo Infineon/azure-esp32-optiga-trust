@@ -23,14 +23,14 @@ The ESP Azure OPTIGA™ Trust M package is based on Azure IoT C SDK and allows t
 	<summary>Connection example</summary>
 	<img src="docs/images/Esp32_connection_with_Shield2Go.jpg" >
   </details>
-  
+
 This Application Note uses Espressif ESP32, but it also shows how to port onto another host platform. You can find more information [below](PortingGuide.md) 
 
 ## Getting Started
 
 ### Step 1. Download and install missing components 
 
-1. **ESP-IDF ver. 4.4** .ESP IDF stands for Espressif IoT Development Framework. The installation guidelines based on you setup can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html#installation-step-by-step). Please try to build a sample ["Hello World"](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html#step-5-start-a-project) project before continuing.
+1. **ESP-IDF ver. 5.1.4** .ESP IDF stands for Espressif IoT Development Framework. The installation guidelines based on you setup can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html#installation-step-by-step). Please try to build a sample ["Hello World"](https://docs.espressif.com/projects/esp-idf/en/v5.1.4/esp32/get-started/index.html) project before continuing.
 
 2. **This repository**
   ``` bash
@@ -49,6 +49,7 @@ This Application Note uses Espressif ESP32, but it also shows how to port onto a
 ### Create a CA certificate for Azure IoT Hub
 
 [This](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-security-x509-get-started#get-x509-ca-certificates) section of the MS Azure IoT tutorial describes generic difference between different type of supported crednetials:
+
 ```
 The X.509 certificate-based security in the IoT Hub requires you to start with an X.509 certificate chain, which includes the root certificate as well as any intermediate certificates up until the leaf certificate.
 
@@ -76,7 +77,7 @@ Now it becomes possible to provision your device with a new X.509 certificate an
 - Go to windows start menu and Open ESP-IDF command prompt
 
     <details><summary>Sample output</summary>
-	
+
     ```bash
     Setting IDF_PATH: C:\Users\username\Desktop\esp-idf
     
@@ -115,12 +116,18 @@ Now it becomes possible to provision your device with a new X.509 certificate an
     ```sh
     idf.py set-target <target>
     ```
+- Run the following command to apply the patch for azure-iot-sdk-c, as the fixes are not part of the submodule which can result in build failures.
+
+    ```
+    ./apply_patch_azure_iot.sh
+    ```
+
 - Build Personalisation project and Flash ESP32 using below command 
     ```bash	
     idf.py build
     idf.py -p <ESP32 serial port> flash
         E.g.: idf.py -p com7 flash
-
+    
     //Custom build folder
     idf.py -B <CUSTOM_BUILD_FOLDER_PATH> build    
     idf.py -B <CUSTOM_BUILD_FOLDER_PATH> -p <ESP32 serial port> flash
@@ -132,21 +139,21 @@ Now it becomes possible to provision your device with a new X.509 certificate an
     idf.py monitor
     ```
 - Choose the type of private key pair to be personalized by selecting from the given option shown below
-	```bash
-	Press 1 to Generate NIST P-256
-	Press 2 to Generate NIST P-384
-	Press 3 to Generate NIST P-521
-	Press 4 to Generate Brainpool 256 r1
-	Press 5 to Generate Brainpool 384 r1
-	Press 6 to Generate Brainpool 512 r1
-	Press 7 to Generate RSA 1024
-	Press 8 to Generate RSA 2048
-	```
+  ```bash
+  Press 1 to Generate NIST P-256
+  Press 2 to Generate NIST P-384
+  Press 3 to Generate NIST P-521
+  Press 4 to Generate Brainpool 256 r1
+  Press 5 to Generate Brainpool 384 r1
+  Press 6 to Generate Brainpool 512 r1
+  Press 7 to Generate RSA 1024
+  Press 8 to Generate RSA 2048
+  ```
 
 * Public Key Extraction</br>
   The demo project starts with generating a new keypair, where the private part stays on the secure element, and the public component   is printed out. You should be able to see something like this
+  
   ```bash
-  Device public key:
   -----BEGIN PUBLIC KEY-----
   MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEzWVpzrgbuR5yM5/oz2DvD5+0czOs
   bxkYE2mZP6DCk1+uCPEa0EG3NFznRhBGIo5aX9eH1XHcsk6NdbMlhuLMDA==
@@ -161,29 +168,29 @@ Now it becomes possible to provision your device with a new X.509 certificate an
   openssl genrsa -out tempCsrSigner.key 2048
   or
   //For ECC key generation execute below command
-  openssl ecparam -out tempCsrSigner.pem -name prime256v1 -genkey
-
+  openssl ecparam -out tempCsrSigner.key -name prime256v1 -genkey
   openssl req -new -key tempCsrSigner.key -out deviceCert.csr
   ```
   During execution of second command, You will be prompted to give Distinguished Names(DN). Common Name (CN) is mandatory field in DN details. Provide the newly created Azure IoT Device  **DEVICE ID** as common name for csr generation, other fields can be skipped</br>
   For Bash
+
   ```bash
-  openssl x509 -req -in deviceCert.csr -CA ./certs/azure-iot-test-only.root.ca.cert.pem -CAkey ./private/azure-iot-test-only.root.ca.cert.pem -CAcreateserial -out deviceCert.pem -days 500 -sha256 -force_pubkey device_public_key.pem 
+  openssl x509 -req -in deviceCert.csr -CA ./certs/azure-iot-test-only.root.ca.cert.pem -CAkey ./private/azure-iot-test-only.root.ca.key.pem -CAcreateserial -out deviceCert.pem -days 500 -sha256 -force_pubkey device_public_key.pem 
   ```
   For Powershell
   ```bash
-  openssl x509 -req -in deviceCert.csr -CA .\certs\azure-iot-test-only.root.ca.cert.pem -CAkey .\private\azure-iot-test-only.root.ca.cert.pem -CAcreateserial -out deviceCert.pem -days 500 -sha256 -force_pubkey device_public_key.pem
+  openssl x509 -req -in deviceCert.csr -CA .\certs\azure-iot-test-only.root.ca.cert.pem -CAkey .\private\azure-iot-test-only.root.ca.key.pem -CAcreateserial -out deviceCert.pem -days 500 -sha256 -force_pubkey device_public_key.pem
   ```
 * Writing back the new certificate
-	- Open the the certficate file in any text editor and copy the certificate.
+	- Open the the certificate file in any text editor and copy the certificate.
 	- Edit the main file of the "provision_test_certificate" project from the path <azure-optiga-trust-				m\examples\provision_test_certificate\main>.
-	- Replace the "CERTIFICATE" macro value "0" with the copied certficate. 
+	- Replace the "CERTIFICATE" macro value "0" with the copied certificate. 
 	- Build Personalisation project and Flash ESP32 using below command 
 	    ```bash	
 	    idf.py build
 	    idf.py -p <ESP32 serial port> flash
 		E.g.: idf.py -p com7 flash
-
+	    
 	    //Custom build folder
 	    idf.py -B <CUSTOM_BUILD_FOLDER_PATH> build    
 	    idf.py -B <CUSTOM_BUILD_FOLDER_PATH> -p <ESP32 serial port> flash
@@ -194,31 +201,40 @@ Now it becomes possible to provision your device with a new X.509 certificate an
 	    ```sh
 	    idf.py monitor
 	    ```
-	- After the above step, Certficate will be succesfully written to selected certficate slot.
+	- After the above step, Certificate will be successfully written to selected certificate slot.
 
 ## Step 3. Configuring and Building Sample
 
-- Follow this step only if Server root CA need to be loaded into any of OPTIGA data object.This certficate will be used for Authentication in TLS session. 
-    - Comment the macro **-DMBEDTLS_RSA_ALT** from the Cmakelist.txt file present in the path <azure-esp32-optiga-trust\components\optiga> as shown below
+- Follow this step only if Server root CA need to be loaded into any of OPTIGA data object. This certificate will be used for Authentication in TLS session. 
+    - Comment the macro **-DMBEDTLS_RSA_ALT** from the CMakelist.txt file present in the path <azure-esp32-optiga-trust\components\optiga> as shown below
         ```sh
         #-DMBEDTLS_RSA_ALT
         ```
         >Note: Since OPTIGA™ Trust M supports only RSA 1024/2048 and Azure Certificate chain has RSA 4096 certificate, the certificate path validation cannot be performed using OPTIGA™ Trust M RSA feature. Hence usage of RSA feature from OPTIGA™ Trust M need to be disabled. 
-    - Enable the macro **SET_TRUSTED_CERT_IN_SAMPLES** and **LOAD_TA_FROM_OPTIGA** from the Cmakelist.txt file present in the path <azure-esp32-optiga-trust\examples\iothub_client_sample_mqtt\main> by uncommenting the compile time definitions as below.
+    - Enable the macro **SET_TRUSTED_CERT_IN_SAMPLES** and **LOAD_TA_FROM_OPTIGA** from the CMakelist.txt file present in the path <azure-esp32-optiga-trust\examples\iothub_client_sample_mqtt\main> by uncommenting the compile time definitions as below.
         ```sh
         component_compile_definitions(SET_TRUSTED_CERT_IN_SAMPLES)
         component_compile_definitions(LOAD_TA_FROM_OPTIGA)
         ```
-    - To enable server certficate validation using OPTIGA, the region specific server root CA certificate must be loaded in any of OPTIGA data object either by personalization or by writing to object using OPTIGA write API
+    - To enable server certificate validation using OPTIGA, the region specific server root CA certificate must be loaded in any of OPTIGA data object either by personalization or by writing to object using OPTIGA write API
     - To load trust anchor using OPTIGA write API, modify file <azure-esp32-optiga-trust\components\optiga\optiga-trust-m\examples\utilities\optiga_trust.c> as below
         - User can choose the root CA as either from the below available certificate or can provide specific certificate by setting value as "1". E.g.:  #if 1
-        By default user can select the **DigiCert Baltimore Root** certificate as it is used Globally as Root Server CA.
+        By default user can select the **DigiCert Baltimore Root** or the **DigiCert Global Root G2** certificate as it is used Globally as Root Server CA.
         <details>
         <summary>Code fragment </summary>
-            
+        
 	    ```c
             static void write_optiga_trust_anchor(void)
             {
+            #if 0
+            	/* DigiCert Global Root G2 --Used Gloabally--*/
+            	// This cert should be used when connecting to Azure IoT on the Azure Cloud available globally. 
+            	const uint8_t trust_anchor[] = {
+            		                            //contains Baltimore certificate data 
+            	                               };
+            	   write_data_object(OPTIGA_TA, trust_anchor, sizeof(trust_anchor));
+            #endif //DigiCert Global Root G2
+                
             #if 0
             	/* DigiCert Baltimore Root --Used Globally--*/
             	// This cert should be used when connecting to Azure IoT on the Azure Cloud available globally. 
@@ -240,7 +256,7 @@ Now it becomes possible to provision your device with a new X.509 certificate an
             
             #if 0
             	/* D-TRUST Root Class 3 CA 2 2009 */
-            	// This cert should be used when connecting to Azure IoT on the https://portal.microsoftazure.de Cloud address.
+    	    	// This cert should be used when connecting to Azure IoT on the https://portal.microsoftazure.de Cloud address.
             	
             	const uint8_t trust_anchor[] = {
             		                            //D-TRUST Root Class 3 CA
@@ -249,31 +265,31 @@ Now it becomes possible to provision your device with a new X.509 certificate an
             #endif //D-TRUST Root Class 3 CA 2 2009
             
             #if 0
-    	    /* User can provide a specific server certificate here and can load in any data object of optiga */
+            /* User can provide a specific server certificate here and can load in any data object of optiga */
         
-        	const uint8_t trust_anchor[] = = {
-            		                      //place to provide region specific server root CA certificate  
+	    	const uint8_t trust_anchor[] = = {
+	        		                      //place to provide region specific server root CA certificate  
             	                           };
                    write_data_object(OPTIGA_TA, trust_anchor, sizeof(trust_anchor));
             #endif //Region Specific Certificate 
             
             }
-            ```
-            
-	    </details>
-	    
+        ```
+        
+        </details>
+        
     - Uncomment **write_optiga_trust_anchor** in API "optiga_trust_init(void)" as below:
         ```sh
         //The below specified functions can be used to personalize OPTIGA w.r.t
         //certificates, Trust Anchors, etc.
-    
+        
         //write_device_certificate ();
         //write_set_high_performance();  //setting current limitation to 15mA
         //write_platform_binding_secret ();  
         //read_certificate ();
         write_optiga_trust_anchor();  //can be used to write server root certificate to optiga data object  
         ```
-
+    
 - Go to windows start menu and Open ESP-IDF command prompt
 
     <details>
@@ -343,7 +359,7 @@ Now it becomes possible to provision your device with a new X.509 certificate an
     idf.py build
     idf.py -p <ESP32 serial port> flash
         E.g.: idf.py -p com7 flash
-
+    
     //Custom build folder
     idf.py -B <CUSTOM_BUILD_FOLDER> build    
     idf.py -B <CUSTOM_BUILD_FOLDER> -p <ESP32 serial port> flash
@@ -361,10 +377,9 @@ Now it becomes possible to provision your device with a new X.509 certificate an
     ```sh
     az extension add --name azure-cli-iot-ext 
    az iot hub monitor-events -n <your IoT Hub Name>
-    ```
-    
-    ![](docs/images/Azure_cloudshell_monitor.png)
+   ```
    
+    ![](docs/images/Azure_cloudshell_monitor.png)
    
 - To send message from Azure cloud to ESP32 during active communication:
     ```sh

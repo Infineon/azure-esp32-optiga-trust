@@ -1,5 +1,11 @@
 set(COMPONENT_ADD_INCLUDEDIRS 
 		"${PROJECT_SOURCE_DIR}/components/mbedtls/mbedtls/include"
+		"${PROJECT_SOURCE_DIR}/components/mbedtls/mbedtls/library"
+		"${PROJECT_SOURCE_DIR}/components/driver/i2c/include"
+		"${PROJECT_SOURCE_DIR}/components/driver/gpio/include"
+		"${PROJECT_SOURCE_DIR}/components/esp_netif/include"
+		"${PROJECT_SOURCE_DIR}/components/esp_event/include"
+		"${PROJECT_SOURCE_DIR}/components/esp_wifi/include"
 		"${CMAKE_CURRENT_LIST_DIR}/optiga-trust-m/optiga/include"
 		"${CMAKE_CURRENT_LIST_DIR}/optiga-trust-m/examples/mbedtls_port/include"
 		)
@@ -34,7 +40,6 @@ set(COMPONENT_SRCS
 	"${CMAKE_CURRENT_LIST_DIR}/optiga-trust-m/optiga/util/optiga_util.c")
 
 set(COMPONENT_REQUIRES mbedtls)
-
 register_component()
 
 target_sources(mbedcrypto PRIVATE "${COMPONENT_SRCS}")
@@ -44,7 +49,7 @@ target_compile_definitions(mbedcrypto PUBLIC
 	-DMBEDTLS_ECDH_COMPUTE_SHARED_ALT
 	-DMBEDTLS_ECDSA_VERIFY_ALT
 	-DMBEDTLS_ECDSA_SIGN_ALT
-	-DMBEDTLS_RSA_ALT
+	# -DMBEDTLS_RSA_ALT
 )
 
 target_include_directories(mbedcrypto PUBLIC

@@ -335,7 +335,7 @@ Now it becomes possible to provision your device with a new X.509 certificate an
 
 - To get IoT Hub Device Connection String: 
     - navigate to your IoT Hub, and then select Setting > shared Access policies > iothubowner
-    - Under shared access keys, copy connection string – primary key E.g.: "HostName=**IoT_hub_name.azure-devices.net**;SharedAccessKeyName=iothubowner;SharedAccessKey=id9ublohj/CdVFb5jLS/9bF3hAfqE2TRpb4woDhlciM="
+    - Under shared access keys, copy connection string – primary key E.g.: "HostName=**IoT_hub_name.azure-devices.net**;SharedAccessKeyName=iothubowner;SharedAccessKey=<device_key_string>"
     - Update Host name from the above step and device id noted down during Azure IoT device creation in the below connection string
     ```bash 
     "HostName=**your_IoT_hub_name.azure-devices.net**;DeviceId=**Azure_Device_ID**;x509=true"

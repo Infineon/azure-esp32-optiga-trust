@@ -64,6 +64,28 @@ int mbedtls_ecdsa_sign( mbedtls_ecp_group *grp, mbedtls_mpi *r, mbedtls_mpi *s,
 {
 
     int return_status = MBEDTLS_ERR_ECP_BAD_INPUT_DATA;
+	uint8_t truncated_hash_length = 32; //P-256 default
+
+	if (grp->id == MBEDTLS_ECP_DP_SECP384R1) {
+		truncated_hash_length = 48;
+	}
+	else if (grp->id == MBEDTLS_ECP_DP_SECP521R1) {
+		truncated_hash_length = 64;
+	}
+	else if (grp->id <  MBEDTLS_ECP_DP_BP256R1) {
+		truncated_hash_length = 32;	
+	}
+	else if (grp->id <  MBEDTLS_ECP_DP_BP384R1) {
+		truncated_hash_length = 48;	
+	}
+	else if (grp->id <  MBEDTLS_ECP_DP_BP512R1) {
+		truncated_hash_length = 64;	
+	}
+
+	if (blen > truncated_hash_length) {
+		blen = truncated_hash_length;
+	}
+
     uint8_t der_signature[150];
     uint16_t dslen = sizeof(der_signature);
     uint8_t *p = der_signature;
@@ -100,11 +122,10 @@ int mbedtls_ecdsa_sign( mbedtls_ecp_group *grp, mbedtls_mpi *r, mbedtls_mpi *s,
 		return_status = MBEDTLS_ERR_ECP_BAD_INPUT_DATA;
 		goto cleanup;
 	}
-
 	//Wait until the optiga_crypt_ecdsa_verify is completed
 	while (OPTIGA_LIB_BUSY == crypt_event_completed_status)
 	{
-		pal_os_timer_delay_in_milliseconds(10);
+		pal_os_timer_delay_in_milliseconds(20);
 	}
 
 	if(crypt_event_completed_status!= OPTIGA_LIB_SUCCESS)

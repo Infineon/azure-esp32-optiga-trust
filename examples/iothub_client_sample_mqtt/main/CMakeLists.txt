@@ -4,5 +4,5 @@ idf_component_register(
 	INCLUDE_DIRS "."
 )
 
-#component_compile_definitions(SET_TRUSTED_CERT_IN_SAMPLES)
-#component_compile_definitions(LOAD_TA_FROM_OPTIGA)
+component_compile_definitions(SET_TRUSTED_CERT_IN_SAMPLES)
+component_compile_definitions(LOAD_TA_FROM_OPTIGA)

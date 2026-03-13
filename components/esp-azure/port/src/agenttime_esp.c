@@ -21,6 +21,11 @@
 void initialize_sntp(void)
 {
     printf("Initializing SNTP\n");
+    // Check if SNTP is already enabled to avoid re-initialization which can cause issues with time sync
+    if (sntp_enabled()) {
+        printf("SNTP already enabled\n");
+        return;
+    }   
     sntp_setoperatingmode(SNTP_OPMODE_POLL);
     sntp_setservername(0, "pool.ntp.org");
     sntp_init();

@@ -1,0 +1,57 @@
+# examples/dps_client_sample_mqtt/main/Kconfig.projbuild
+#
+# Menuconfig entries for the DPS + OPTIGA Trust M sample.
+# Configure with:  idf.py menuconfig → "Example Configuration"
+
+menu "Example Configuration"
+
+    config WIFI_SSID
+        string "Wi-Fi SSID"
+        default "myssid"
+        help
+            SSID (network name) of the Wi-Fi access point to connect to.
+
+    config WIFI_PASSWORD
+        string "Wi-Fi Password"
+        default "mypassword"
+        help
+            Wi-Fi password (WPA/WPA2). Leave empty for open networks.
+
+    menu "Azure DPS Settings"
+
+        config AZURE_DPS_ID_SCOPE
+            string "DPS ID Scope"
+            default "0ne00000000"
+            help
+                The ID Scope of your Azure Device Provisioning Service instance.
+                Found in the Azure portal: DPS resource → Overview → ID Scope.
+                Format: 0neXXXXXXXX  (8 hex digits after "0ne")
+
+        config AZURE_DPS_REGISTRATION_ID
+            string "DPS Registration ID"
+            default "my-optiga-device"
+            help
+                The Registration ID for this device.
+
+                IMPORTANT for individual X.509 enrollment:
+                This value MUST exactly match the Common Name (CN) field of
+                the device certificate stored in the OPTIGA Trust M chip.
+
+                The CN is set during OpenSSL CSR generation step:
+                  openssl req -new -key ... -out deviceCert.csr
+                  → Common Name: <this value>
+
+        config AZURE_DPS_ENDPOINT
+            string "DPS Endpoint string"
+            default "global.azure-devices-provisioning.net"
+
+    endmenu
+    
+    menu "Azure IoT DPS Settings"
+        config DEVICE_COMMON_NAME
+            bool "Enable Device Auth Client"
+            default y
+
+    endmenu
+
+endmenu

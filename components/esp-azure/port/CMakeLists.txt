@@ -112,8 +112,10 @@ set (COMPONENT_SRCS
 	"${AZURE_IOT_SDK}/c-utility/src/azure_base32.c"
 	)
 
+	#Required for Azure DPS
 if (CONFIG_DEVICE_COMMON_NAME)
 	list (APPEND COMPONENT_SRCS "${AZURE_IOT_SDK}/provisioning_client/src/iothub_auth_client.c")
+	list (APPEND COMPONENT_SRCS "src/socketio_esp_stub.c")
 endif()
 
 set (COMPONENT_SUBMODULES "${AZURE_IOT_SDK}")
@@ -139,6 +141,8 @@ component_compile_definitions (
 	HSM_TYPE_SAS_TOKEN
 )
 
+#Required for Azure DPS
 if (CONFIG_DEVICE_COMMON_NAME)
 	add_definitions(-DUSE_PROV_MODULE)
+	add_definitions(-DUSE_PROV_MODULE_FULL)
 endif()

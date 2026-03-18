@@ -322,32 +322,67 @@ Now it becomes possible to provision your device with a new X.509 certificate an
     C:\Users\username\Desktop\esp-idf>
     ```
     </details>
-- Change working directory to <azure-esp32-optiga-trust\examples\iothub_client_sample_mqtt>
-- Configure "Example Configuration" and "OPTIGA(TM) Trust M config" using below command
+    
+- Steps for working with the IoT Hub Client Sample MQTT example
+
+    - Change working directory to <azure-esp32-optiga-trust\examples\iothub_client_sample_mqtt>
+    - Configure "Example Configuration" and "OPTIGA(TM) Trust M config" using below command
 
     ```sh
     idf.py menuconfig
     ```
     ![](docs/images/menu_config_1.png)
 
-- Select Example Configuration and update WiFi SSID, WiFi Password, IoT Hub device connection string and RSA key type(only if used for personalization)
+    - Select Example Configuration and update Wi-Fi SSID, Wi-Fi Password, IoT Hub device connection string and RSA key type(only if used for personalization)
+
     >In case RSA key is used for personalization, then select the RSA key type used for Personalization from the Example Configuration
 
-- To get IoT Hub Device Connection String: 
-    - navigate to your IoT Hub, and then select Setting > shared Access policies > iothubowner
-    - Under shared access keys, copy connection string – primary key E.g.: "HostName=**IoT_hub_name.azure-devices.net**;SharedAccessKeyName=iothubowner;SharedAccessKey=<device_key_string>"
-    - Update Host name from the above step and device id noted down during Azure IoT device creation in the below connection string
-    ```bash 
-    "HostName=**your_IoT_hub_name.azure-devices.net**;DeviceId=**Azure_Device_ID**;x509=true"
-    ```
+    - To get IoT Hub Device Connection String: 
+
+        - navigate to your IoT Hub, and then select Setting > shared Access policies > iothubowner
+        - Under shared access keys, copy connection string – primary key E.g.: "HostName=**IoT_hub_name.azure-devices.net**;SharedAccessKeyName=iothubowner;SharedAccessKey=<device_key_string>"
+        - Update Host name from the above step and device id noted down during Azure IoT device creation in the below connection string
+        ```bash 
+        "HostName=**your_IoT_hub_name.azure-devices.net**;DeviceId=**Azure_Device_ID**;x509=true"
+        ```
     - Update the above connection string as IoT Hub Device Connection String in the Example Configuration and save the configuration
 
-    ![](docs/images/menu_config_2.png)
+        ![](docs/images/menu_config_2.png)
+
+        
+
+- Steps to work with the Azure DPS Client Sample MQTT example:
+
+    - Change working directory to <azure-esp32-optiga-trust\examples\dps_client_sample_mqtt>
+
+    - Configure "Example Configuration" and "OPTIGA(TM) Trust M config" using below command
+
+    ```sh
+    idf.py menuconfig
+    ```
+
+    ![](docs/images/menu_config_1.png)
+
+    - Select Example Configuration and update Wi-Fi SSID, Wi-Fi Password, Azure DPS ID Scope, DPS Registration ID and DPS Endpoint String
+
+    - DPS Endpoint String is fixed: `global.azure-devices-provisioning.net` 
+
+    - To get your DPS ID Scope:
+
+      - In your Azure Portal, navigate to DPS Resource > Overview > ID Scope (format: 0neXXXXXXXX)
+
+    - For the DPS Registration ID enter the exact same value as the Registration ID in the enrollment (= Device Certificate CN). Please note that Registration ID in Azure portal enrollment and CN of the device certificate must all be identical.
+
+    - Keep the Enable Device Auth Client option enabled.
+
+      ![](docs/images/menu_config_5.png)
+
+      
 
 - Go back to the main page of menuconfig and select "OPTIGA(TM) Trust M config" option and update the below parameters:
 
     ![](docs/images/menu_config_3.png)
-    
+
     - Select the certificate Slot out of 4 slots provided, where the device certificate is personalized
     - Select the Private Key slot out of 4 slots provided, where the device private key is personalized
     - Select the Trust Anchor slot out of 3 slots provided, where the Azure trust anchor is personalized 
